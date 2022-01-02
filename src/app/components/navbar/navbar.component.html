@@ -1,0 +1,14 @@
+<nav>
+    <div class="logo">
+        <img src="../../../assets/img/logo.png">
+        <h3>Movie Time</h3>
+    </div>
+    <div class="menu">
+        <ul>
+            <li>Home</li>
+            <li>Plans</li>
+            <li *ngIf="page == 'register'">Login</li>
+            <li *ngIf="page == 'login'">Register</li>
+        </ul>
+    </div>
+</nav>
