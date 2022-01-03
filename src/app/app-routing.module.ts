@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 // Pages
@@ -6,7 +6,8 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 
 const routes: Routes = [
   { path: 'register', component: RegisterPageComponent }, 
-  { path: 'login', component: LoginPageComponent }
+  { path: 'login', component: LoginPageComponent },
+  { path: '**', redirectTo: 'login'}
 ];
 
 @NgModule({

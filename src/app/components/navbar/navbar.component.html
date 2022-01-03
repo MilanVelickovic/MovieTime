@@ -7,8 +7,8 @@
         <ul>
             <li>Home</li>
             <li>Plans</li>
-            <li *ngIf="page == 'register'">Login</li>
-            <li *ngIf="page == 'login'">Register</li>
+            <li *ngIf="page == 'register'" routerLink="/login">Login</li>
+            <li *ngIf="page == 'login'" routerLink="/register">Register</li>
         </ul>
     </div>
 </nav>

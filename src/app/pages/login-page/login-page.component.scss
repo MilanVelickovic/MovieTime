@@ -1,0 +1,47 @@
+#loginPage {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)), url('../../../assets/img/login-background.jpg');
+    background-size: cover;
+
+    form {
+        position: relative;
+        background-color: #FFF;
+        width: 450px;
+        height: 550px;
+        padding: 30px;
+
+        h3 {
+            margin-bottom: 30px;
+        }
+
+        button {
+            background: linear-gradient(to right, #A74AC6 0%, #6B45C4 100%);
+            border: 0;
+            margin: 10px 0px;
+            font-size: 20px;
+            width: 80px;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #6B45C4 0%, #A74AC6 100%);
+        }
+
+        p {
+            position: absolute;
+            bottom: 10px;
+        }
+    }
+
+    .loginSideImage {
+        background-image: url("../../../assets/img/family.jpg");
+        background-size: cover;
+        background-position: -170px;
+        width: 400px;
+        height: 550px;
+    }
+}

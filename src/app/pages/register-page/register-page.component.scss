@@ -4,33 +4,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6)), url('../../../assets/img/background.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6)), url('../../../assets/img/register-background1.jpg');
     background-size: contain;
 
     form {
         background-color: #FFF;
         width: 380px;
+        height: 600px;
         padding: 30px 30px;
-    
-        .form-group, .form-check {
-            input {
-                margin: 5px 0px;
-            }
-            small {
-                color: red !important;
-                display: none;
-            }
-        }
-
-        .form-check {
-            padding: 0;
-            label > span {
-                color: rgb(0, 136, 255);
-            }
-        }
-
         button {
             margin: 10px 0px;
         }
+    }
+
+    .registerSideImage {
+        background-image: url("../../../assets/img/popcorn1.jpg");
+        background-size: cover;
+        background-position: -20px;
+        width: 400px;
+        height: 600px;
     }
 }

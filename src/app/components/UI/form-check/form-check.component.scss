@@ -1,0 +1,13 @@
+.form-check {
+    padding: 0;
+    input {
+        margin: 5px 0px;
+    }
+    small {
+        color: red !important;
+        display: none;
+    }
+    label > span {
+        color: rgb(0, 136, 255);
+    }
+}
