@@ -1,10 +1,10 @@
 <app-navbar></app-navbar>
 <div id="registerPage">
-    <form action="" method="POST">
+    <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
         <h1>Join us!</h1>
         <app-form-input *ngFor="let input of inputs" [input]="input"></app-form-input>
         <app-form-check *ngFor="let check of checks" [check]="check"></app-form-check>
-        <button type="submit" class="btn btn-success">Register</button>
+        <button type="submit" name="submit" class="btn btn-success">Register</button>
         <p>Already have a profile? Login <a routerLink="/login">here</a>.</p>
     </form>    
     <div class="registerSideImage"></div>    

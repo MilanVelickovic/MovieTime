@@ -1,11 +1,11 @@
 <app-navbar></app-navbar>
 <div id="loginPage">
-    <form action="" method="POST">
+    <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
         <h1>Welcome!</h1>
         <h3>Ready to watch some movies?</h3>
         <app-form-input *ngFor="let input of inputs" [input]="input"></app-form-input>
         <app-form-check [check]="check"></app-form-check>
-        <button type="submit" class="btn btn-success">Login</button>
+        <button type="submit" name="submit" class="btn btn-success">Login</button>
         <p>Don't have a profile? No worries, you can register <a routerLink="/register">here</a>!</p>
     </form>
     <div class="loginSideImage"></div>    

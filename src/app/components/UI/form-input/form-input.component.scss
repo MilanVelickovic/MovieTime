@@ -1,9 +1,12 @@
 .form-group {
     input {
-        margin: 5px 0px;
+        margin-top: 5px;
     }
     small {
         color: red !important;
-        display: none;
+    }
+
+    .errorSign {
+        color: red !important;
     }
 }

@@ -1,6 +1,6 @@
 <div class="form-group">
-    <label for="{{input.name}}">{{input.label.charAt(0).toUpperCase() + input.label.slice(1)}}</label>
-    <input type="{{input.type}}" class="form-control" name="{{input.name}}" placeholder="{{input.placeholder}}">
-    <small id="{{input.name.concat('Help')}}" class="form-text text-muted">{{input.info}}</small>
+    <label for="{{input.getNameValue()}}">{{input.getLabelValue().charAt(0).toUpperCase() + input.getLabelValue().slice(1)}} <span *ngIf="input.getRequiredValue()" data-bs-toggle="tooltip" data-bs-placement="right" title="This field is required!">*</span></label>
+    <input type="{{input.getTypeValue()}}" class="form-control" formControlName="{{input.getNameValue()}}" name="{{input.getNameValue()}}" placeholder="{{input.getPlaceholderValue()}}">
+    <small class="form-text text-muted">{{input.getInfoValue()}}</small>
 </div>
 

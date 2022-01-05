@@ -1,29 +1,30 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ControlContainer, FormGroupDirective } from '@angular/forms';
 
 import { Input as InputModel } from '../../../models/input/input';
 
 @Component({
   selector: 'app-form-input',
   templateUrl: './form-input.component.html',
-  styleUrls: ['./form-input.component.scss']
+  styleUrls: ['./form-input.component.scss'],
+  viewProviders: [
+    {
+      provide: ControlContainer,
+      useExisting: FormGroupDirective
+    }
+  ]
 })
 export class FormInputComponent implements OnInit {
 
   @Input() input: InputModel
 
-  constructor() {
-
-  }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
-}
+  toErrorMessage(name: string): string {
+    return name.concat("Error")
+  }
 
-/**
- * <div class="form-group">
-    <label for="{{name}}">{{name.charAt(0).toUpperCase() + name.slice(1)}}</label>
-    <input type="{{type}}" class="form-control" id="{{name}}" placeholder="{{placeholder}}">
-    <small id="{{name.concat('Help')}}" class="form-text text-muted">Requirements</small>
-   </div>
- */
+}
