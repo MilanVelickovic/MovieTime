@@ -1,14 +1,26 @@
-<nav>
+<nav *ngIf="!username">
     <div class="logo">
-        <img src="../../../assets/img/logo.png">
+        <img src="../../../assets/img/logo/logo.png">
         <h3>Movie Time</h3>
     </div>
     <div class="menu">
         <ul>
-            <li>Home</li>
             <li>Plans</li>
             <li *ngIf="page == 'register'" routerLink="/login">Login</li>
             <li *ngIf="page == 'login'" routerLink="/register">Register</li>
+        </ul>
+    </div>
+</nav>
+
+<nav *ngIf="username">
+    <div class="avatar">
+        <img src="../../../assets/img/avatars/{{avatar}}.jpg">
+        <h4>{{username}}</h4>
+    </div>
+    <div class="menu">
+        <ul>
+            <li *ngIf="page == 'home'" routerLink="/mylist">My List</li>
+            <li *ngIf="page == 'home'" (click)="logout()">Logout</li>
         </ul>
     </div>
 </nav>

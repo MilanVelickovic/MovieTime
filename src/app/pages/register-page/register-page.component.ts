@@ -24,8 +24,8 @@ export class RegisterPageComponent implements OnInit {
 
   registerForm: FormGroup
 
-  constructor(formBuilder: FormBuilder) {
-    this.registerForm = formBuilder.group({
+  constructor(private formBuilder: FormBuilder) {
+    this.registerForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
       passwordRepeat: new FormControl('', Validators.required),
@@ -38,11 +38,10 @@ export class RegisterPageComponent implements OnInit {
   }
 
   registerUser(): void {
-    let email = this.registerForm.get("email")?.value
     let password = this.registerForm.get("password")?.value
     let passwordRepeat = this.registerForm.get("passwordRepeat")?.value
-    let termsConditions = this.registerForm.get("termsConditions")
-    let emailNotifications = this.registerForm.get("emailNotifications")?.value
+    //let termsConditions = this.registerForm.get("termsConditions")
+    //let emailNotifications = this.registerForm.get("emailNotifications")?.value
 
     if (!this.registerForm.get("email")?.valid) {
       this.inputs[this.getIndexOfInputByName("email")].setErrorValue(true)
@@ -65,22 +64,10 @@ export class RegisterPageComponent implements OnInit {
       this.inputs[this.getIndexOfInputByName("passwordRepeat")].setErrorValue(false)
     }
 
-    if (!this.registerForm.get("termsConditions")?.valid) {
-      this.checks[this.getIndexOfCheckByName("termsConditions")].setErrorValue(true)
-      console.log(termsConditions)
-      console.log("t&c err")
-    } else {     
-      console.log("t&c fine")
-    }
-
-    if (this.inputs[this.getIndexOfInputByName("email")].getErrorValue() == true ||
-        this.inputs[this.getIndexOfInputByName("password")].getErrorValue() == true ||
-        this.inputs[this.getIndexOfInputByName("passwordRepeat")].getErrorValue() == true ||
-        this.checks[this.getIndexOfCheckByName("termsConditions")].getErrorValue() == true) {
-        console.log("Inputs do not fulfill the requirements!")
-    } else {
-        console.log("The form is valid!")
-        // Don't forget to check id emailNotifications is checked
+    if (this.inputs[this.getIndexOfInputByName("email")].getErrorValue() == false &&
+        this.inputs[this.getIndexOfInputByName("password")].getErrorValue() == false &&
+        this.inputs[this.getIndexOfInputByName("passwordRepeat")].getErrorValue() == false &&
+        this.checks[this.getIndexOfCheckByName("termsConditions")].getErrorValue() == false) {  
     }
   }
 

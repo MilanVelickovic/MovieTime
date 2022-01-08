@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { CheckButton } from 'src/app/models/check-button/check-button';
 import { Input as InputModel } from '../../models/input/input';
@@ -11,7 +12,7 @@ import { Input as InputModel } from '../../models/input/input';
 })
 export class LoginPageComponent implements OnInit {
 
-  inputs: InputModel[] = [
+  public inputs: InputModel[] = [
     new InputModel("email", "Email", "email", "Enter email", true, false),
     new InputModel("password", "Password", "password", "Enter password", true, false)
   ]
@@ -19,12 +20,13 @@ export class LoginPageComponent implements OnInit {
   check: CheckButton = new CheckButton("rememberMe", `Remember me.`, "checkbox", false, false)
 
   loginForm: FormGroup
+  rememberMeValue: boolean = false
 
-  constructor(formBuilder: FormBuilder) {
-    this.loginForm = formBuilder.group({
+  constructor(private formBuilder: FormBuilder, private router: Router) {
+    this.loginForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]),
       password: new FormControl('', Validators.required),
-      rememberMe: new FormControl('', )
+      rememberMe: new FormControl(this.rememberMeValue, )
     })
   }
 
@@ -34,21 +36,47 @@ export class LoginPageComponent implements OnInit {
   loginUser(): void {
     let email = this.loginForm.get("email")?.value
     let password = this.loginForm.get("password")?.value
-    let rememberMe = this.loginForm.get("rememberMe")?.touched
+    let rememberMe = this.loginForm.get("rememberMe")
+    console.log(rememberMe)
 
     if (!this.loginForm.get("email")?.valid) {
       this.inputs[this.getIndexOfInputByName("email")].setErrorValue(true)
       this.inputs[this.getIndexOfInputByName("email")].setInfoValue("Invalid email.")
     } else {
       this.inputs[this.getIndexOfInputByName("email")].setErrorValue(false)
+      this.inputs[this.getIndexOfInputByName("email")].setInfoValue("")
     }
 
-    if (this.inputs[this.getIndexOfInputByName("email")].getErrorValue() == true ||
-        this.inputs[this.getIndexOfInputByName("password")].getErrorValue() == true) {
-        console.log("Inputs do not fulfill the requirements!")
-    } else {
-        console.log("The form is valid!")
-        // Don't forget to check if rememberMe is checked
+    if (this.inputs[this.getIndexOfInputByName("email")].getErrorValue() == false &&
+        this.inputs[this.getIndexOfInputByName("password")].getErrorValue() == false) {
+          // TEST TEST ---------------------------------------------------
+          // This is just a simulation -----------------------------------
+          // -------------------------------------------------------------
+          let user = {
+            type: "admin",
+            username: "admin",
+            email: "admin@yahoo.com",
+            movieList: [],
+            avatar: "avatar2"
+          }
+          let userPass = "123"
+          window.sessionStorage.setItem("user", JSON.stringify(user))
+          if (email === user.email) {
+            if (password === userPass) {
+              if (this.rememberMeValue) {
+                this.setCookie("email@movie-time", email)
+                this.setCookie("password@movie-time", password)
+              }
+              this.router.navigate(["/home"])
+            } else {
+              this.inputs[this.getIndexOfInputByName("password")].setInfoValue("Incorrect password! Please try again.")
+            }
+          } else {
+            this.inputs[this.getIndexOfInputByName("email")].setInfoValue("Email address not found!")
+          }
+          
+          // END ---------------------------------------------------------
+          // -------------------------------------------------------------
     }
   }
 
@@ -60,6 +88,17 @@ export class LoginPageComponent implements OnInit {
       }
     })
     return ind
+  }
+
+  rememberMe(): void {
+    this.rememberMeValue = !this.rememberMeValue
+  }
+
+  setCookie(cname: string, cvalue: string): void {
+    const date = new Date();
+    date.setTime(date.getTime() + (60 * 60 * 24));
+    let expires = "expires="+ date.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
 
 }

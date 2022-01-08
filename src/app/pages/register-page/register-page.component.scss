@@ -4,7 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6)), url('../../../assets/img/register-background1.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6)), url('../../../assets/img/backgrounds/register-background1.jpg');
     background-size: contain;
 
     form {
@@ -29,7 +29,7 @@
     }
 
     .registerSideImage {
-        background-image: url("../../../assets/img/popcorn1.jpg");
+        background-image: url("../../../assets/img/side-images/popcorn1.jpg");
         background-size: cover;
         background-position: -30px;
         width: 400px;

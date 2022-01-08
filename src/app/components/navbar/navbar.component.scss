@@ -10,7 +10,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     
-    .logo {
+    .logo, .avatar {
         width: 20%;
         color: #000;
         display: flex;
@@ -23,6 +23,19 @@ nav {
         }
 
         h3 {
+            margin: 0;
+            font-family: 'Archivo', sans-serif;
+        }
+    }
+
+    .avatar {
+        img {
+            height: 40px;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        h4 {
             margin: 0;
             font-family: 'Archivo', sans-serif;
         }

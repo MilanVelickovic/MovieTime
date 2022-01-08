@@ -5,7 +5,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)), url('../../../assets/img/login-background.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)), url('../../../assets/img/backgrounds/login-background.jpg');
     background-size: cover;
 
     form {
@@ -39,7 +39,7 @@
     }
 
     .loginSideImage {
-        background-image: url("../../../assets/img/family.jpg");
+        background-image: url("../../../assets/img/side-images/family.jpg");
         background-size: cover;
         background-position: -170px;
         width: 400px;

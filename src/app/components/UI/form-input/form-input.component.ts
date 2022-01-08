@@ -18,13 +18,11 @@ export class FormInputComponent implements OnInit {
 
   @Input() input: InputModel
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor() {
+    
   }
 
-  toErrorMessage(name: string): string {
-    return name.concat("Error")
+  ngOnInit(): void {
   }
 
 }

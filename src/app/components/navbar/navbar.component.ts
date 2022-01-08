@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -8,14 +9,27 @@ import { Component, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
 
   public page?: string
+  public username: string
+  public avatar: string
 
-  constructor() { 
+  constructor(private router: Router) { 
     let url = window.location.href
     this.page = url.split('/').pop()
+    
+    if (window.sessionStorage.getItem("user")) {
+      let userData = JSON.parse(window.sessionStorage.getItem("user") || "")
+      this.username = userData.username
+      this.avatar = userData.avatar
+    }
   }
 
   ngOnInit(): void {
 
+  }
+
+  logout(): void {
+    window.sessionStorage.clear()
+    this.router.navigate(["/login"])
   }
 
 }
