@@ -5,16 +5,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
+
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { SetupPageComponent } from './pages/setup-page/setup-page.component';
+
 import { FormInputComponent } from './components/UI/form-input/form-input.component';
 import { FormCheckComponent } from './components/UI/form-check/form-check.component';
-import { HomePageComponent } from './pages/home-page/home-page.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
-import { StoreModule } from '@ngrx/store';
-import { reducers } from './reducers';
-import { AuthGuardService } from './services/auth-guard.service';
+import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -24,14 +25,14 @@ import { AuthGuardService } from './services/auth-guard.service';
     LoginPageComponent,
     FormInputComponent,
     FormCheckComponent,
-    HomePageComponent
+    HomePageComponent,
+    SetupPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    StoreModule.forRoot(reducers)
+    HttpClientModule
   ],
   providers: [AuthGuardService],
   bootstrap: [AppComponent]

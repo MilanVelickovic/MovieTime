@@ -9,10 +9,12 @@ export class AuthGuardService implements CanActivate {
   constructor(private router: Router) { }
 
   canActivate(): boolean {
-    if (window.sessionStorage.getItem("user")) {
+    if (window.sessionStorage.getItem("user") || window.sessionStorage.getItem("user-setup-data")) {
       return true
     }
     this.router.navigate(["/login"])
     return false
   }
+
 }
+

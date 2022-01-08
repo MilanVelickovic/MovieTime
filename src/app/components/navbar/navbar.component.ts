@@ -13,8 +13,7 @@ export class NavbarComponent implements OnInit {
   public avatar: string
 
   constructor(private router: Router) { 
-    let url = window.location.href
-    this.page = url.split('/').pop()
+    this.page = window.location.href.split('/').pop()
     
     if (window.sessionStorage.getItem("user")) {
       let userData = JSON.parse(window.sessionStorage.getItem("user") || "")

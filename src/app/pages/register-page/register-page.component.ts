@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { CheckButton } from 'src/app/models/check-button/check-button';
 import { Input as InputModel } from '../../models/input/input';
@@ -24,7 +25,7 @@ export class RegisterPageComponent implements OnInit {
 
   registerForm: FormGroup
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private router: Router) {
     this.registerForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
@@ -68,6 +69,24 @@ export class RegisterPageComponent implements OnInit {
         this.inputs[this.getIndexOfInputByName("password")].getErrorValue() == false &&
         this.inputs[this.getIndexOfInputByName("passwordRepeat")].getErrorValue() == false &&
         this.checks[this.getIndexOfCheckByName("termsConditions")].getErrorValue() == false) {  
+
+          
+          // TEST TEST ---------------------------------------------------
+          // This is just a simulation -----------------------------------
+          // -------------------------------------------------------------
+          let user = {
+            type: "user",
+            username: "user",
+            email: this.registerForm.get("email")?.value,
+            movieList: [],
+            avatar: "avatar",
+            password: this.registerForm.get("password")?.value,
+            favGenres: [],
+            age: 0,
+            sex: ""
+          }
+          window.sessionStorage.setItem("user-setup-data", JSON.stringify(user))
+          this.router.navigate(["/setup"])
     }
   }
 
