@@ -1,8 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { CheckButton } from 'src/app/models/check-button/check-button';
+import { UserDbService } from 'src/app/services/user-db/user-db.service';
 import { Input as InputModel } from '../../models/input/input';
 
 @Component({
@@ -13,8 +15,8 @@ import { Input as InputModel } from '../../models/input/input';
 export class LoginPageComponent implements OnInit {
 
   public inputs: InputModel[] = [
-    new InputModel("email", "Email", "email", "Enter email", true, false),
-    new InputModel("password", "Password", "password", "Enter password", true, false)
+    new InputModel("email", "Email", "email", "Enter email", true),
+    new InputModel("password", "Password", "password", "Enter password", true)
   ]
 
   check: CheckButton = new CheckButton("rememberMe", `Remember me.`, "checkbox", false, false)
@@ -22,7 +24,7 @@ export class LoginPageComponent implements OnInit {
   loginForm: FormGroup
   rememberMeValue: boolean = false
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, private userDB: UserDbService) {
     this.loginForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]),
       password: new FormControl('', Validators.required),
@@ -37,47 +39,37 @@ export class LoginPageComponent implements OnInit {
     let email = this.loginForm.get("email")?.value
     let password = this.loginForm.get("password")?.value
     let rememberMe = this.loginForm.get("rememberMe")
-    console.log(rememberMe)
 
     if (!this.loginForm.get("email")?.valid) {
-      this.inputs[this.getIndexOfInputByName("email")].setErrorValue(true)
       this.inputs[this.getIndexOfInputByName("email")].setInfoValue("Invalid email.")
     } else {
-      this.inputs[this.getIndexOfInputByName("email")].setErrorValue(false)
       this.inputs[this.getIndexOfInputByName("email")].setInfoValue("")
     }
 
-    if (this.inputs[this.getIndexOfInputByName("email")].getErrorValue() == false &&
-        this.inputs[this.getIndexOfInputByName("password")].getErrorValue() == false) {
-          // TEST TEST ---------------------------------------------------
-          // This is just a simulation -----------------------------------
-          // -------------------------------------------------------------
+    this.inputs[this.getIndexOfInputByName("password")].setInfoValue("")
+    if (this.inputs[this.getIndexOfInputByName("email")].getInfoValue() == "" &&
+        this.inputs[this.getIndexOfInputByName("password")].getInfoValue() == "") {
           let user = {
-            type: "admin",
-            username: "admin",
-            email: "admin@yahoo.com",
-            movieList: [],
-            avatar: "avatar2"
+            email: email,
+            password: password
           }
-          let userPass = "123"
-          window.sessionStorage.setItem("user", JSON.stringify(user))
-          if (email === user.email) {
-            if (password === userPass) {
-              if (this.rememberMeValue) {
-                this.setCookie("email@movie-time", email)
-                this.setCookie("password@movie-time", password)
-              }
-              this.router.navigate(["/home"])
-            } else {
-              this.inputs[this.getIndexOfInputByName("password")].setInfoValue("Incorrect password! Please try again.")
-            }
-          } else {
-            this.inputs[this.getIndexOfInputByName("email")].setInfoValue("Email address not found!")
-          }
-          
-          // END ---------------------------------------------------------
-          // -------------------------------------------------------------
+
+          this.loginUserDB(user)   
     }
+  }
+
+  loginUserDB(user: any) {
+    const url = "http://localhost:9000/user/login"
+    this.http.post(url, user).subscribe(res => {
+      if (Object.values(res)[0] == "Email not found!") {
+        this.inputs[this.getIndexOfInputByName("email")].setInfoValue(Object.values(res)[0])
+      } else if (Object.values(res)[0] == "Password incorrect!") {
+        this.inputs[this.getIndexOfInputByName("password")].setInfoValue(Object.values(res)[0])
+      } else {
+        window.sessionStorage.setItem("user", JSON.stringify(Object.values(res)[1]))
+        this.router.navigate(["/home"])
+      }
+    })
   }
 
   getIndexOfInputByName(name: string): number {

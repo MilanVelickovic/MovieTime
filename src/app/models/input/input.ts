@@ -5,16 +5,14 @@ export class Input {
     private placeholder: string
     private info: string
     private required: boolean
-    private error: boolean
 
-    constructor(name: string, label:string, type: string, placeholder: string, required: boolean, error: boolean, info?: string) {
+    constructor(name: string, label:string, type: string, placeholder: string, required: boolean, info?: string) {
         this.name = name
         this.label = label
         this.type = type
         this.placeholder = placeholder
         this.info = info || ""
         this.required = required
-        this.error = error
     }
 
     public getNameValue(): string {
@@ -43,13 +41,5 @@ export class Input {
 
     public getRequiredValue(): boolean {
         return this.required
-    }
-
-    public getErrorValue(): boolean {
-        return this.error
-    }
-
-    public setErrorValue(error: boolean): void {
-        this.error = error
     }
 }

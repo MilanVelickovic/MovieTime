@@ -15,9 +15,9 @@ import { Input as InputModel } from '../../models/input/input';
 export class RegisterPageComponent implements OnInit {
 
   inputs: InputModel[] = [
-    new InputModel("email", "Email", "email", "Enter email", true, false),
-    new InputModel("password", "Password", "password", "Enter password", true, false),
-    new InputModel("passwordRepeat", "Repeat password", "password", "Repeat password", true, false),
+    new InputModel("email", "Email", "email", "Enter email", true),
+    new InputModel("password", "Password", "password", "Enter password", true),
+    new InputModel("passwordRepeat", "Repeat password", "password", "Repeat password", true),
   ]
 
   checks: CheckButton[] = [
@@ -47,33 +47,27 @@ export class RegisterPageComponent implements OnInit {
     //let emailNotifications = this.registerForm.get("emailNotifications")?.value
 
     if (!this.registerForm.get("email")?.valid) {
-      this.inputs[this.getIndexOfInputByName("email")].setErrorValue(true)
       this.inputs[this.getIndexOfInputByName("email")].setInfoValue("Invalid email.")
     } else {
-      this.inputs[this.getIndexOfInputByName("email")].setErrorValue(false)
       this.inputs[this.getIndexOfInputByName("email")].setInfoValue("")
     }
 
     if (!this.registerForm.get("password")?.valid) {
-      this.inputs[this.getIndexOfInputByName("password")].setErrorValue(true)
       this.inputs[this.getIndexOfInputByName("password")].setInfoValue("Password must be at least 6 characters long.")
     } else {
-      this.inputs[this.getIndexOfInputByName("password")].setErrorValue(false)
       this.inputs[this.getIndexOfInputByName("password")].setInfoValue("")
     }
     
     if (password !== passwordRepeat) {
-      this.inputs[this.getIndexOfInputByName("passwordRepeat")].setErrorValue(true)
       this.inputs[this.getIndexOfInputByName("passwordRepeat")].setInfoValue("Password does't match with the original one.")
     } else {
-      this.inputs[this.getIndexOfInputByName("passwordRepeat")].setErrorValue(false)
       this.inputs[this.getIndexOfInputByName("passwordRepeat")].setInfoValue("")
     }
 
-    if (this.inputs[this.getIndexOfInputByName("email")].getErrorValue() == false &&
-        this.inputs[this.getIndexOfInputByName("password")].getErrorValue() == false &&
-        this.inputs[this.getIndexOfInputByName("passwordRepeat")].getErrorValue() == false &&
-        this.checks[this.getIndexOfCheckByName("termsConditions")].getErrorValue() == false) {  
+    if (this.inputs[this.getIndexOfInputByName("email")].getInfoValue() == "" &&
+        this.inputs[this.getIndexOfInputByName("password")].getInfoValue() == "" &&
+        this.inputs[this.getIndexOfInputByName("passwordRepeat")].getInfoValue() == "" &&
+        this.checks[this.getIndexOfCheckByName("termsConditions")].getInfoValue() == "") {  
 
           let user = {
             type: "user",
@@ -96,7 +90,6 @@ export class RegisterPageComponent implements OnInit {
     const url = "http://localhost:9000/user/register"
     this.http.post(url, user).subscribe(res => {
       if (Object.values(res)[0] == "Email already exists!") {
-        this.inputs[this.getIndexOfInputByName("email")].setErrorValue(true)
         this.inputs[this.getIndexOfInputByName("email")].setInfoValue(Object.values(res)[0] || '')
       } else {
         window.sessionStorage.setItem("user-setup-email", user.email)

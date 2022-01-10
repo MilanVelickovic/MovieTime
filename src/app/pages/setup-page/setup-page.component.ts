@@ -46,14 +46,17 @@ export class SetupPageComponent implements OnInit {
   finishRegistration(): void {
     if (this.setupForm.valid) {
       if (window.sessionStorage.getItem("user-setup-email")) {
-        let email = window.sessionStorage.getItem("user-setup-email") || ''
+        let user = {
+          email: window.sessionStorage.getItem("user-setup-email") || '',
+          username: this.setupForm.get("username")?.value,
+          age: this.setupForm.get("age")?.value,
+          sex: this.setupForm.get("gender")?.value,
+          avatar: this.avatar,
+          favGenres: this.favGenres
+        }
         window.sessionStorage.clear()
 
-        let username = this.setupForm.get("username")?.value
-        let age = this.setupForm.get("age")?.value
-        let sex = this.setupForm.get("gender")?.value
-
-        this.userDB.updateUser(email, username, age, sex, this.avatar, this.favGenres)
+        this.userDB.updateUser(user)
 
         this.router.navigate(["/login"])
       }

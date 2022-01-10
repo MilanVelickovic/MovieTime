@@ -9,25 +9,24 @@ export class UserDbService {
 
   constructor(private http: HttpClient) { }
 
-  registerUser(user: Object): any {
+  registerUser(user: any): any {
     const url = this.BASE_URL + "register"
     this.http.post(url, user).subscribe(res => {
       return Object.values(res)[0]
     })
   }
 
-  updateUser(email: string, username: string, avatar: string, age: string, sex: string, favGenres: string[]) {
+  updateUser(user: any) {
     const url = this.BASE_URL + "update"
-    let data = {
-      email: email,
-      username: username,
-      avatar: avatar,
-      age: age,
-      sex: sex,
-      favGenres: favGenres
-    }
-    this.http.put(url, data).subscribe(res => {
+    this.http.put(url, user).subscribe(res => {
       console.log(res)
+    })
+  }
+
+  loginUser(user: any) {
+    const url = this.BASE_URL + "login"
+    this.http.post(url, user).subscribe(res => {
+      window.sessionStorage.setItem("user", JSON.stringify(Object.values(res)[1]))
     })
   }
 }
