@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/reducers';
 import { UserDbService } from 'src/app/services/user-db/user-db.service';
 
 @Component({
@@ -12,16 +14,20 @@ export class SetupPageComponent implements OnInit {
 
   setupForm: FormGroup
   avatars: String[] = ["avatar", "avatar1", "avatar2", "avatar3", "avatar4", "avatar5", "avatar6", "avatar7"]
-  genres: String[] = ["Action", "Comedy", "Adventure", "Fantasy", "Biographical", "Horror", "Drama", "Romance", "SciFy", "Anime", "Western", "Crime", "Documentary", "Mystery", "Thriller"]
+  genres: String[]
 
   private avatar: string = "avatar"
   private favGenres: string[] = []
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private userDB: UserDbService) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private userDB: UserDbService, private store: Store<AppState>) {
     this.setupForm = this.formBuilder.group({
       username: new FormControl(''),
       age: new FormControl(0),
       gender: new FormControl('')
+    })
+
+    this.store.select("genres").subscribe((items: any) => {
+      this.genres = [...items][0]
     })
   }
 

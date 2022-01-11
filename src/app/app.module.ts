@@ -18,6 +18,10 @@ import { MoviesComponent } from './components/movies/movies.component';
 import { MovieComponent } from './components/movies/movie/movie.component';
 
 import { AuthGuardService1, AuthGuardService2 } from './services/auth-guard/auth-guard.service';
+import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
+
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './reducers';
 
 @NgModule({
   declarations: [
@@ -30,13 +34,20 @@ import { AuthGuardService1, AuthGuardService2 } from './services/auth-guard/auth
     HomePageComponent,
     SetupPageComponent,
     MovieComponent,
-    MoviesComponent
+    MoviesComponent,
+    FilterBarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot(reducers, {
+      runtimeChecks: {
+        strictStateImmutability: false,
+        strictActionImmutability: false
+      }
+    })
   ],
   providers: [
     AuthGuardService1, 

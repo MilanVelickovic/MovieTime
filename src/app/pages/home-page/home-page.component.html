@@ -1,8 +1,8 @@
 <app-navbar></app-navbar>
+<app-filter-bar [genres]="genres"></app-filter-bar>
 <div id="homePage">
-    <!-- <app-movie *ngFor="let movie of movies" [movie]="movie"></app-movie> -->
     <div *ngFor="let genre of genres" class="movies">
         <h1>{{genre}}</h1>
-        <app-movies [movies]="movies"></app-movies>
+        <app-movies [genre]="genre"></app-movies>
     </div>
 </div>

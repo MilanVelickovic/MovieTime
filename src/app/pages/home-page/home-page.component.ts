@@ -1,6 +1,7 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Movie } from 'src/app/models/movie/movie';
+import { AppState } from 'src/app/reducers';
 import { MovieDbService } from 'src/app/services/movie-db/movie-db.service';
 
 @Component({
@@ -11,18 +12,16 @@ import { MovieDbService } from 'src/app/services/movie-db/movie-db.service';
 export class HomePageComponent implements OnInit {
 
   genres: string[]
-  movies: Movie[]
 
-  constructor(private movieDB: MovieDbService) { 
-    this.genres = this.movieDB.getMovieGenres()
-    this.movies = this.getMoviesByGenre("Action")
+  constructor(private store: Store<AppState>) {
+    this.loadGenres()
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
-  getMoviesByGenre(genre: string): Movie[] {
-    return this.movieDB.getMoviesByGenre(this.movieDB.getMovieGenreId(genre))
+  loadGenres(): void {
+    this.store.select("genres").subscribe((items: any) => {
+      this.genres = [...items][0]
+    })
   }
-
 }
