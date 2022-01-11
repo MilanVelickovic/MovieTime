@@ -1,0 +1,13 @@
+.movieCard {
+    width: 200px;
+    height: 320px;
+    background: linear-gradient(to right, #A74AC6 0%, #6B45C4 100%);
+
+    margin: 5px 3px;
+    display: block;
+    float: left;
+
+    img {
+        width: 100%;
+    }
+}

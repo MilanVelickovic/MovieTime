@@ -57,7 +57,7 @@ nav {
                 cursor: pointer;
             }
 
-            :last-child {
+            li:last-child {
                 margin-right: 0px;
                 background: linear-gradient(to right, #A74AC6 0%, #6B45C4 100%);
                 border-radius: 6px;
@@ -67,7 +67,7 @@ nav {
                 transition: .3s ease-in-out;
             }
 
-            :last-child:hover {
+            li:last-child:hover {
                 background: linear-gradient(to right, #6B45C4 0%, #A74AC6 100%);
             }
         }

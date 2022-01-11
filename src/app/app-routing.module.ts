@@ -6,13 +6,13 @@ import { SetupPageComponent } from './pages/setup-page/setup-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 
-import { AuthGuardService } from './services/auth-guard/auth-guard.service';
+import { AuthGuardService1, AuthGuardService2 } from './services/auth-guard/auth-guard.service';
 
 const routes: Routes = [
-  { path: 'register', component: RegisterPageComponent }, 
-  { path: 'login', component: LoginPageComponent },
-  { path: 'setup', component: SetupPageComponent, canActivate:[AuthGuardService]},
-  { path: 'home', component: HomePageComponent, canActivate:[AuthGuardService]},
+  { path: 'register', component: RegisterPageComponent, canActivate:[AuthGuardService2] }, 
+  { path: 'login', component: LoginPageComponent, canActivate:[AuthGuardService2] },
+  { path: 'setup', component: SetupPageComponent, canActivate:[AuthGuardService1] },
+  { path: 'home', component: HomePageComponent, canActivate:[AuthGuardService1] },
   { path: '**', redirectTo: 'login'}
 ];
 

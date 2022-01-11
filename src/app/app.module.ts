@@ -14,8 +14,10 @@ import { SetupPageComponent } from './pages/setup-page/setup-page.component';
 import { FormInputComponent } from './components/UI/form-input/form-input.component';
 import { FormCheckComponent } from './components/UI/form-check/form-check.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { MoviesComponent } from './components/movies/movies.component';
+import { MovieComponent } from './components/movies/movie/movie.component';
 
-import { AuthGuardService } from './services/auth-guard/auth-guard.service';
+import { AuthGuardService1, AuthGuardService2 } from './services/auth-guard/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { AuthGuardService } from './services/auth-guard/auth-guard.service';
     FormInputComponent,
     FormCheckComponent,
     HomePageComponent,
-    SetupPageComponent
+    SetupPageComponent,
+    MovieComponent,
+    MoviesComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,9 @@ import { AuthGuardService } from './services/auth-guard/auth-guard.service';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [AuthGuardService],
+  providers: [
+    AuthGuardService1, 
+    AuthGuardService2],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

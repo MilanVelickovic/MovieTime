@@ -4,7 +4,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 
 import { CheckButton } from 'src/app/models/check-button/check-button';
-import { UserDbService } from 'src/app/services/user-db/user-db.service';
 import { Input as InputModel } from '../../models/input/input';
 
 @Component({
@@ -24,7 +23,7 @@ export class LoginPageComponent implements OnInit {
   loginForm: FormGroup
   rememberMeValue: boolean = false
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, private userDB: UserDbService) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient) {
     this.loginForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]),
       password: new FormControl('', Validators.required),
