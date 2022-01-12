@@ -10,6 +10,7 @@ export class NavbarComponent implements OnInit {
 
   public page?: string
   public username: string
+  public type: string
   public avatar: string
 
   constructor(private router: Router) { 
@@ -18,6 +19,7 @@ export class NavbarComponent implements OnInit {
     if (window.sessionStorage.getItem("user")) {
       let userData = JSON.parse(window.sessionStorage.getItem("user") || "")
       this.username = userData.username
+      this.type = userData.type
       this.avatar = userData.avatar
     }
   }

@@ -1,13 +1,18 @@
 .movieCard {
     width: 200px;
-    height: 320px;
     background: linear-gradient(to right, #A74AC6 0%, #6B45C4 100%);
-
+    transition: .3s all;
     margin: 10px 3px;
     display: block;
     float: left;
+    cursor: pointer;
 
     img {
         width: 100%;
     }
+}
+
+.movieCard:hover {
+    transform: scale(1.05);
+    box-shadow: 10px 10px 15px rgb(183, 183, 183);
 }

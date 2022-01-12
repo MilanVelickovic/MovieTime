@@ -15,10 +15,5 @@ export class AppComponent {
   constructor(private movieDB: MovieDbService, private store: Store<AppState>) {
     let genres = this.movieDB.getMovieGenres()
     this.store.dispatch(new GenreActions.AddGenres(genres))
-    
-    // this.store.select("genres").subscribe((items: any) => {
-    //   console.log(items)
-    //   this.genres = [...items]
-    // })
   }
 }

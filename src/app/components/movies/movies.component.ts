@@ -9,19 +9,17 @@ import { MovieDbService } from 'src/app/services/movie-db/movie-db.service';
 })
 export class MoviesComponent implements OnInit {
 
-  @Input() genre: string = "Adventure"
+  @Input() genre: string
   movies: Movie[]
 
-  constructor(private movieDB: MovieDbService) {
-    console.log(this.genre)
+  constructor(private movieDB: MovieDbService) { }
+
+  ngOnInit(): void {
     this.movies = this.getMoviesByGenre(this.genre)
   }
 
-  ngOnInit(): void {
-  }
-
   getMoviesByGenre(genre: string): Movie[] {
-    console.log(this.movieDB.getMovieGenreId(genre))
+    //console.log(this.movieDB.getMovieGenreId(genre))
     return this.movieDB.getMoviesByGenre(this.movieDB.getMovieGenreId(genre))
   }
 

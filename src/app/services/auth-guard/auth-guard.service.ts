@@ -35,3 +35,26 @@ export class AuthGuardService2 implements CanActivate {
 
 }
 
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthGuardService3 implements CanActivate {
+
+  constructor(private router: Router) { }
+
+  canActivate(): boolean {
+    if (window.sessionStorage.getItem("user")) {
+      let user = JSON.parse(window.sessionStorage.getItem("user") || '')
+      if (user.type == "admin") {
+        return true
+      } else {
+        this.router.navigate(["/home"])
+        return false
+      }
+    }
+    this.router.navigate(["/login"])
+    return false
+  }
+
+}
+
