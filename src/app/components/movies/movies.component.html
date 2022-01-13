@@ -1,1 +1,6 @@
-<app-movie *ngFor="let movie of movies" [movie]="movie"></app-movie>
+<div>
+    <img *ngIf="loading" src="../../../assets/img/ui/loading1.gif" alt="loading...">
+</div>
+<div *ngIf="!loading">
+    <app-movie *ngFor="let movie of movies" [movie]="movie"></app-movie>
+</div>

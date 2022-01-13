@@ -9,15 +9,15 @@
             ul {
                 li {
                     cursor: pointer;
-                    padding: 0px 4px;
-                    
-                    :first-child {
-                        padding-left: 0px;
-                    }
+                    padding: 0px 4px;              
                 }
 
-                li:first-child {
-                    padding-left: 0px;
+                .nav-item {
+                    padding-left: 0;
+
+                    .dropdown-toggle {
+                        padding-left: 0;
+                    }
                 }
 
                 .forYou {
@@ -47,6 +47,17 @@
             .input-group {
                 width: 20%;
                 margin-top: 18px;
+            }
+
+            #backToTop {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+
+                p {
+                    margin: 0;
+                }
             }
         }
     }

@@ -25,14 +25,15 @@ export class MovieDbService {
     return result
   }
 
-  getMovieGenreId(genreName: string): any {
+  getMovieGenreIds(): any {
     // Example: https://api.themoviedb.org/3/genre/movie/list?api_key=<<API_KEY>>
     this.http.get(`${this.BASE_URL}genre/movie/list?api_key=${this.API_KEY}`).subscribe(genres => {
+      let ids: number[] = []
       Object.values(genres)[0].forEach((genre: any) => {
-        if (genre.name == genreName) {
-          return genre.id
-        }
+        ids.push(genre.id)
       })
+      console.log(ids)
+      return ids
     })
   }
 
@@ -53,7 +54,9 @@ export class MovieDbService {
     let result: Movie[] = []
     this.http.get(`${this.BASE_URL}search/movie?api_key=${this.API_KEY}&query=${title}`).subscribe(movies => {
       Object.values(movies)[1].forEach((movie: any) => {
-        result.push(this.createMovieObject(movie))
+        if (movie.poster_path) {
+          result.push(this.createMovieObject(movie))
+        }
       })
     })
     return result
