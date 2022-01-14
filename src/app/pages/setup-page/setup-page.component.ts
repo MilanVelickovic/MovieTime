@@ -16,14 +16,14 @@ export class SetupPageComponent implements OnInit {
   avatars: String[] = ["avatar", "avatar1", "avatar2", "avatar3", "avatar4", "avatar5", "avatar6", "avatar7"]
   genres: String[]
 
-  private avatar: string = "avatar"
-  private favGenres: string[] = []
+  selectedAvatar: string = "avatar"
+  selectedGenres: string[] = []
 
   constructor(private formBuilder: FormBuilder, private router: Router, private userDB: UserDbService, private store: Store<AppState>) {
     this.setupForm = this.formBuilder.group({
       username: new FormControl(''),
       age: new FormControl(0),
-      gender: new FormControl('')
+      gender: new FormControl('None')
     })
 
     this.store.select("genres").subscribe((items: any) => {
@@ -35,38 +35,47 @@ export class SetupPageComponent implements OnInit {
   }
 
   selectAvatar(avatar: String): void {
-    if (this.avatar !== avatar.toString()) {
-      this.avatar = avatar.toString()
+    if (this.selectedAvatar !== avatar.toString()) {
+      this.selectedAvatar = avatar.toString()
     }
+  }
+
+  isAvatarSelected(avatar: String): boolean {
+    return this.selectedAvatar == avatar.toString()
   }
 
   selectGenre(genre: String): void {
-    if (this.favGenres.includes(genre.toString())) {
-      let index = this.favGenres.indexOf(genre.toString())
-      this.favGenres.splice(index, 1)
+    if (this.selectedGenres.includes(genre.toString())) {
+      let index = this.selectedGenres.indexOf(genre.toString())
+      this.selectedGenres.splice(index, 1)
     } else {
-      this.favGenres.push(genre.toString())
+      this.selectedGenres.push(genre.toString())
     }
+  }
+
+  isGenreSelected(genre: String): boolean {
+    return this.selectedGenres.includes(genre.toString())
   }
 
   finishRegistration(): void {
-    if (this.setupForm.valid) {
-      if (window.sessionStorage.getItem("user-setup-email")) {
-        let user = {
-          email: window.sessionStorage.getItem("user-setup-email") || '',
-          username: this.setupForm.get("username")?.value,
-          age: this.setupForm.get("age")?.value,
-          sex: this.setupForm.get("gender")?.value,
-          avatar: this.avatar,
-          favGenres: this.favGenres
-        }
-        window.sessionStorage.clear()
-
-        this.userDB.updateUser(user)
-
-        this.router.navigate(["/login"])
+    if (this.setupForm.valid && window.sessionStorage.getItem("user-setup-email")) {
+      let user = {
+        email: window.sessionStorage.getItem("user-setup-email") || '',
+        username: this.setupForm.get("username")?.value,
+        age: this.setupForm.get("age")?.value,
+        sex: this.setupForm.get("gender")?.value,
+        avatar: this.selectedAvatar,
+        favGenres: this.selectedGenres
       }
+      window.sessionStorage.clear()
+
+      // this.userDB.updateUser(user)
+      // this.router.navigate(["/login"])
+
+      this.userDB.updateUser(user).subscribe(result => {
+        console.log(result)
+        this.router.navigate(["/login"])
+      })
     }
   }
-
 }

@@ -12,15 +12,19 @@ import { MovieDbService } from 'src/app/services/movie-db/movie-db.service';
 export class HomePageComponent implements OnInit {
 
   genres: string[]
-  // HARD CODDED !!!!!!!!!!!!!!!!!!!1
-  genreIds: number[] = [28, 12, 16, 35, 80, 99, 18, 10751, 14, 36, 27, 10402, 9648, 10749, 878, 10770, 53, 10752, 37]
+  genreIds: number[]
   search: string
   trending: boolean
   searchResult: Movie[]
   trendingResult: Movie[]
 
   constructor(private store: Store<AppState>, private movieDB: MovieDbService) {
+    // HARD CODDED !!!!!!!!!!!!!!!!!!!1
+    this.genreIds = [28, 12, 16, 35, 80, 99, 18, 10751, 14, 36, 27, 10402, 9648, 10749, 878, 10770, 53, 10752, 37]
     this.loadGenres()
+    // this.movieDB.getMovieGenreIds().subscribe(result => {
+    //   console.log(result)
+    // })
   }
 
   ngOnInit(): void {
@@ -35,7 +39,9 @@ export class HomePageComponent implements OnInit {
 
   recieveSearchValue(search: string): void{
     this.search = search
-    this.searchResult = this.movieDB.getMoviesByTitle(this.search)
+    this.movieDB.getMoviesByTitle(this.search).subscribe(result => {
+      this.searchResult = result
+    })
   }
 
   receiveHomeEvent(): void {
@@ -44,7 +50,9 @@ export class HomePageComponent implements OnInit {
 
   receiveTrendingEvent(): void {
     this.trending = true
-    this.trendingResult = this.movieDB.getTrending()
+    this.movieDB.getTrending().subscribe(result => {
+      this.trendingResult = result
+    })
   }
 
   isFavorite(genre: string): boolean {

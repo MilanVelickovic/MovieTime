@@ -8,8 +8,9 @@ export class Movie {
     voteAverage: number
     voteCount: number
     posterPath: string
+    backdropPath: string
 
-    constructor(movieId: number, title: string, overview: string, releaseDate: string, genres: string[], runtime: number, voteAverage: number, voteCount: number, posterPath: string) {
+    constructor(movieId: number, title: string, overview: string, releaseDate: string, genres: string[], runtime: number, voteAverage: number, voteCount: number, posterPath: string, backdropPath:string) {
         this.movieId = movieId
         this.title = title
         this.overview = overview
@@ -19,6 +20,7 @@ export class Movie {
         this.voteAverage = voteAverage
         this.voteCount = voteCount
         this.posterPath = posterPath
+        this.backdropPath = backdropPath
     }
 }
 

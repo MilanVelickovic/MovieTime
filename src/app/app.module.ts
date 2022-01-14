@@ -40,7 +40,7 @@ import { reducers } from './reducers';
     MoviesComponent,
     FilterBarComponent,
     StatisticsPageComponent,
-    MovieViewComponent
+    MovieViewComponent,
   ],
   imports: [
     BrowserModule,

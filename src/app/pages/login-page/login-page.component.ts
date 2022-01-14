@@ -1,9 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { CheckButton } from 'src/app/models/check-button/check-button';
+import { UserDbService } from 'src/app/services/user-db/user-db.service';
 import { Input as InputModel } from '../../models/input/input';
 
 @Component({
@@ -23,7 +23,7 @@ export class LoginPageComponent implements OnInit {
   loginForm: FormGroup
   rememberMeValue: boolean = false
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private userDB: UserDbService) {
     this.loginForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]),
       password: new FormControl('', Validators.required),
@@ -58,14 +58,13 @@ export class LoginPageComponent implements OnInit {
   }
 
   loginUserDB(user: any) {
-    const url = "http://localhost:9000/user/login"
-    this.http.post(url, user).subscribe(res => {
-      if (Object.values(res)[0] == "Email not found!") {
-        this.inputs[this.getIndexOfInputByName("email")].setInfoValue(Object.values(res)[0])
-      } else if (Object.values(res)[0] == "Password incorrect!") {
-        this.inputs[this.getIndexOfInputByName("password")].setInfoValue(Object.values(res)[0])
+    this.userDB.loginUser(user).subscribe(result => {
+      if (Object.values(result)[0] == "Email not found!") {
+        this.inputs[this.getIndexOfInputByName("email")].setInfoValue("Email not found!")
+      } else if (Object.values(result)[0] == "Password incorrect!") {
+        this.inputs[this.getIndexOfInputByName("password")].setInfoValue("Password incorrect!")
       } else {
-        window.sessionStorage.setItem("user", JSON.stringify(Object.values(res)[1]))
+        window.sessionStorage.setItem("user", JSON.stringify(Object.values(result)[1]))
         this.router.navigate(["/home"])
       }
     })

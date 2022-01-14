@@ -23,7 +23,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     $(function() {
-    $('a[href*=\\#]:not([href=\\#])').on('click', function() {
+      $('a[href*=\\#]:not([href=\\#])').on('click', function() {
         var target = $(this.hash);
         target = target.length ? target : $('[name=' + this.hash.substr(1) +']');
         if (target.length) {
@@ -32,9 +32,8 @@
             }, 200);
             return false;
         }
+      });
     });
-});
-
   </script>
 </body>
 </html>

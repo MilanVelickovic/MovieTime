@@ -6,7 +6,7 @@
         </div>        
         <h2>And your avatar too!</h2>
         <div class="avatars col-md-3">
-            <img *ngFor="let avatar of avatars" src="../../../assets/img/avatars/{{avatar}}.jpg" alt="avatar" (click)="selectAvatar(avatar)">
+            <img *ngFor="let avatar of avatars" [ngClass]="isAvatarSelected(avatar) ? 'selectedAvatar' : ''" src="../../../assets/img/avatars/{{avatar}}.jpg" alt="avatar" (click)="selectAvatar(avatar)">
         </div>
         <h2>How old are you?</h2>
         <div class="form-group">
@@ -20,7 +20,11 @@
         </div>   
         <h2>Gender</h2>
         <div class="form-group">
-            <input type="text" class="form-control" formControlName="gender" name="gender" placeholder="Gender">
+            <select class="custom-select genre" formControlName="gender" name="gender">
+                <option value="None" selected>None</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
             <div data-bs-toggle="tooltip" data-bs-placement="left" title="This field is not required, it is used for statistical purposes.">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -30,7 +34,7 @@
         </div>  
         <h2>Do you have any favorite movie genres?</h2>
         <div class="genres">
-            <div *ngFor="let genre of genres" class="genre" (click)="selectGenre(genre)">
+            <div *ngFor="let genre of genres" [ngClass]="isGenreSelected(genre) ? 'genre selectedGenre' : 'genre'" (click)="selectGenre(genre)">
                 {{genre}}
             </div>
         </div>

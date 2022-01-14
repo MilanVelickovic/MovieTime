@@ -1,5 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators'
+
 @Injectable({
   providedIn: 'root'
 })
@@ -9,24 +13,23 @@ export class UserDbService {
 
   constructor(private http: HttpClient) { }
 
-  registerUser(user: any): any {
+  registerUser(user: any): Observable<any> {
     const url = this.BASE_URL + "register"
-    this.http.post(url, user).subscribe(res => {
-      return Object.values(res)[0]
-    })
+    return this.http.post(url, user).pipe(map((response: any) => response))
   }
 
-  updateUser(user: any) {
+  updateUserMovieList(user: any): Observable<any> {
+    const url = this.BASE_URL + "update/movielist"
+    return this.http.post(url, user).pipe(map((response: any) => response))
+  }
+
+  updateUser(user: any): Observable<any> {
     const url = this.BASE_URL + "update"
-    this.http.put(url, user).subscribe(res => {
-      console.log(res)
-    })
+    return this.http.post(url, user).pipe(map((response: any) => response))
   }
 
-  loginUser(user: any) {
+  loginUser(user: any) : Observable<any> {
     const url = this.BASE_URL + "login"
-    this.http.post(url, user).subscribe(res => {
-      window.sessionStorage.setItem("user", JSON.stringify(Object.values(res)[1]))
-    })
+    return this.http.post(url, user).pipe(map((response: any) => response))    
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserDbService } from 'src/app/services/user-db/user-db.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +14,7 @@ export class NavbarComponent implements OnInit {
   public type: string
   public avatar: string
 
-  constructor(private router: Router) { 
+  constructor(private router: Router, private userDB: UserDbService) { 
     this.page = window.location.href.split('/').pop()
     
     if (window.sessionStorage.getItem("user")) {
@@ -29,8 +30,12 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void {
-    window.sessionStorage.clear()
-    this.router.navigate(["/login"])
+    let user = JSON.parse(window.sessionStorage.getItem("user") || '')
+    this.userDB.updateUserMovieList(user).subscribe(result => {
+      console.log(result)
+      window.sessionStorage.clear()
+      this.router.navigate(["/login"])
+    })
   }
 
 }

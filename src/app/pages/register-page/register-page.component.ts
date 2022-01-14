@@ -1,9 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { CheckButton } from 'src/app/models/check-button/check-button';
+import { UserDbService } from 'src/app/services/user-db/user-db.service';
 import { Input as InputModel } from '../../models/input/input';
 
 @Component({
@@ -26,7 +26,7 @@ export class RegisterPageComponent implements OnInit {
 
   registerForm: FormGroup
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private userDB: UserDbService) {
     this.registerForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
@@ -84,12 +84,10 @@ export class RegisterPageComponent implements OnInit {
     }
   }
 
-  // FIX THIS !!!!!!!!!!!!!!!!!
   registerUserDB(user: any): void {
-    const url = "http://localhost:9000/user/register"
-    this.http.post(url, user).subscribe(res => {
-      if (Object.values(res)[0] == "Email already exists!") {
-        this.inputs[this.getIndexOfInputByName("email")].setInfoValue(Object.values(res)[0] || '')
+    this.userDB.registerUser(user).subscribe((result: any) => {
+      if (Object.values(result)[0] == "Email already exists!") {
+        this.inputs[this.getIndexOfInputByName("email")].setInfoValue("Email already exists!")
       } else {
         window.sessionStorage.setItem("user-setup-email", user.email)
         this.router.navigate(["/setup"])

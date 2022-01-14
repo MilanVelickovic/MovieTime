@@ -16,10 +16,19 @@ export class MoviesComponent implements OnInit {
   constructor(private movieDB: MovieDbService) { }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.movies = this.movieDB.getMoviesByGenre(this.genreId)
+    this.movieDB.getMoviesByGenre(this.genreId).subscribe(result => {
+      this.movies = result
       this.loading = false
+    })
+
+    /*
+    setTimeout(() => {
+      this.movieDB.getMoviesByGenre(this.genreId).subscribe(result => {
+      this.movies = result
+      this.loading = false
+    })
     }, 3000)
+    */
   }
 
 }
