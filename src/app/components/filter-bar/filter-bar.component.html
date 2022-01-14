@@ -25,10 +25,13 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" (click)="sendHomeEvent()">Home</a>
+            <a class="nav-link" (click)="sendPageValue('home')">Home</a>
+          </li>
+          <li class="nav-item myList">
+            <a class="nav-link" (click)="sendPageValue('myList')">My List</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" (click)="sendTrendingEvent()">Trending 🔥</a>
+            <a class="nav-link" (click)="sendPageValue('trending')">Trending 🔥</a>
           </li>
           <li class="nav-item forYou">
             <a class="nav-link" href="#">For you</a>

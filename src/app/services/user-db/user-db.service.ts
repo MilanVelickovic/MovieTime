@@ -19,13 +19,13 @@ export class UserDbService {
   }
 
   updateUserMovieList(user: any): Observable<any> {
-    const url = this.BASE_URL + "update/movielist"
-    return this.http.post(url, user).pipe(map((response: any) => response))
+    const url = this.BASE_URL + "update/movielist" 
+    return this.http.put(url, user).pipe(map((response: any) => response))
   }
 
   updateUser(user: any): Observable<any> {
     const url = this.BASE_URL + "update"
-    return this.http.post(url, user).pipe(map((response: any) => response))
+    return this.http.put(url, user).pipe(map((response: any) => response))
   }
 
   loginUser(user: any) : Observable<any> {

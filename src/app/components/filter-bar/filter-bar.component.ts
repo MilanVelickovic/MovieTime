@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/reducers';
 
 @Component({
   selector: 'app-filter-bar',
@@ -10,11 +12,13 @@ export class FilterBarComponent implements OnInit {
   search: string
   @Input() genres: string[]
   @Output() passValue = new EventEmitter()
-  @Output() passHomeEvent = new EventEmitter()
-  @Output() passTrendingEvent = new EventEmitter()
+  @Output() passPageValue = new EventEmitter()
 
-  constructor() {
+  constructor(private store: Store<AppState>) {
     this.search = ''
+    this.store.select("genres").subscribe((result: any) => {
+      this.genres = result[0]
+    })
   }
 
   ngOnInit(): void {
@@ -24,12 +28,8 @@ export class FilterBarComponent implements OnInit {
     this.passValue.emit(this.search)
   }
 
-  sendHomeEvent(): void {
-    this.passHomeEvent.emit()
-  }
-
-  sendTrendingEvent(): void {
-    this.passTrendingEvent.emit()
+  sendPageValue(page: string): void {
+    this.passPageValue.emit(page)
   }
 
 }

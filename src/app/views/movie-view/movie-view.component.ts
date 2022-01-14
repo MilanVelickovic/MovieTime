@@ -40,7 +40,5 @@ export class MovieViewComponent implements OnInit {
     }
 
     window.sessionStorage.setItem("user", JSON.stringify(user))
-
   }
-
 }

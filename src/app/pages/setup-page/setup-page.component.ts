@@ -67,12 +67,9 @@ export class SetupPageComponent implements OnInit {
         avatar: this.selectedAvatar,
         favGenres: this.selectedGenres
       }
-      window.sessionStorage.clear()
-
-      // this.userDB.updateUser(user)
-      // this.router.navigate(["/login"])
 
       this.userDB.updateUser(user).subscribe(result => {
+        window.sessionStorage.clear()
         console.log(result)
         this.router.navigate(["/login"])
       })
