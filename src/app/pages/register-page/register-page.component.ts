@@ -20,11 +20,12 @@ export class RegisterPageComponent implements OnInit {
   ]
 
   checks: CheckButton[] = [
-    new CheckButton("termsConditions", "I agree to the Terms & Conditions.", "checkbox", true, false),
-    new CheckButton("emailNotifications", "Subscribe to our newsletter. (optional)", "checkbox", false, false)
+    new CheckButton("termsConditions", "I agree to the Terms & Conditions.", "checkbox", true),
+    new CheckButton("emailNotifications", "Subscribe to our newsletter. (optional)", "checkbox", false)
   ]
 
   registerForm: FormGroup
+
 
   constructor(private formBuilder: FormBuilder, private router: Router, private userDB: UserDbService) {
     this.registerForm = this.formBuilder.group({
@@ -42,8 +43,6 @@ export class RegisterPageComponent implements OnInit {
   registerUser(): void {
     let password = this.registerForm.get("password")?.value
     let passwordRepeat = this.registerForm.get("passwordRepeat")?.value
-    //let termsConditions = this.registerForm.get("termsConditions")
-    //let emailNotifications = this.registerForm.get("emailNotifications")?.value
 
     if (!this.registerForm.get("email")?.valid) {
       this.inputs[this.getIndexOfInputByName("email")].setInfoValue("Invalid email.")
@@ -77,7 +76,8 @@ export class RegisterPageComponent implements OnInit {
             password: this.registerForm.get("password")?.value,
             favGenres: [],
             age: 0,
-            sex: ""
+            sex: "",
+            emailNotifications: false
           }
 
           this.registerUserDB(user)          

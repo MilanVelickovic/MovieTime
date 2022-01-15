@@ -27,7 +27,7 @@ export class MovieViewComponent implements OnInit {
 
   inList(): boolean {
     let list = JSON.parse(window.sessionStorage.getItem("user") || '').movieList
-    return list.includes(this.movie.movieId)
+    return list.includes(this.movie.getMovieIdValue())
   }
 
   addToList(movieId: number): void {

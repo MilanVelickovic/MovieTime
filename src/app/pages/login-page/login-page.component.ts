@@ -18,7 +18,7 @@ export class LoginPageComponent implements OnInit {
     new InputModel("password", "Password", "password", "Enter password", true)
   ]
 
-  check: CheckButton = new CheckButton("rememberMe", `Remember me.`, "checkbox", false, false)
+  check: CheckButton = new CheckButton("rememberMe", `Remember me.`, "checkbox", false)
 
   loginForm: FormGroup
   rememberMeValue: boolean = false

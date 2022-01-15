@@ -4,15 +4,13 @@ export class CheckButton {
     private type: string
     private info: string
     private required: boolean
-    private error: boolean
 
-    constructor(name: string, label: string, type: string, required: boolean, error: boolean, info?: string) {
+    constructor(name: string, label: string, type: string, required: boolean, info?: string) {
         this.name = name
         this.label = label
         this.type = type
         this.info = info || ""
         this.required = required
-        this.error = error
     }
 
     public getNameValue(): string {
@@ -37,13 +35,5 @@ export class CheckButton {
 
     public getRequiredValue(): boolean {
         return this.required
-    }
-
-    public getErrorValue(): boolean {
-        return this.error
-    }
-
-    public setErrorValue(error: boolean): void {
-        this.error = error
     }
 }

@@ -31,13 +31,9 @@ export class HomePageComponent implements OnInit {
 
   loadMovieList(): void {
     let user = JSON.parse(window.sessionStorage.getItem("user") || '')
-    user.movieList.forEach((movie: any) => {
-      this.movieDB.getMovieById(movie).subscribe(result => {
-        console.log(result)
-        this.myListResult.push(result)
-      })
-    })
-    console.log(this.myListResult)
+    this.myListResult = user.movieList.map((movie: any) => {
+      return this.movieDB.getMovieById(movie).subscribe(result => result)
+    })  
   }
 
   loadTrending(): void {
