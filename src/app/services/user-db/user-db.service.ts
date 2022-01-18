@@ -28,7 +28,7 @@ export class UserDbService {
     return this.http.put(url, user).pipe(map((response: any) => response))
   }
 
-  loginUser(user: any) : Observable<any> {
+  loginUser(user: any): Observable<any> {
     const url = this.BASE_URL + "login"
     return this.http.post(url, user).pipe(map((response: any) => response))    
   }

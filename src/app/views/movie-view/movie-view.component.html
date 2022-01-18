@@ -44,6 +44,7 @@
             </svg>
             {{movie.getVoteCountValue()}}
         </p>
+        <app-star-rate [movieId]="movie.getMovieIdValue()"></app-star-rate>
         <div class="buttons">
             <button class="btn btn-success play">
                 Watch

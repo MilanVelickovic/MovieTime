@@ -16,6 +16,7 @@
         height: 100vh;
         background-size: cover;
         background-repeat: no-repeat;
+        background-attachment: fixed;
         padding: 10% 6% 0% 6%;
 
         h1 {
@@ -62,7 +63,7 @@
             flex-direction: row;
             justify-content: flex-start;
             align-items: center;
-            margin-top: 20px;
+            margin-top: 10px;
 
             .play {
                 display: flex;

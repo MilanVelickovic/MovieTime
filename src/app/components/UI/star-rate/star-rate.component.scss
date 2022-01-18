@@ -1,0 +1,46 @@
+.starRate {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    .stars {
+        width: 115px;
+        height: 40px;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items: center;
+
+        svg {
+            fill: rgba(255, 255, 255, .5)
+        }
+    
+        svg:hover {
+            fill: #fbdb15;
+            transition: .3s all;
+        }
+    
+        svg:hover ~ svg{
+            fill: #fbdb15;
+        }
+
+        .rated {
+            fill: #fbdb15;
+        }
+
+        .rated:hover {
+            fill: #fba315;
+        }
+
+        .rated:hover ~ .rated{
+            fill: #fbdb15;
+        }
+    }
+
+    p {
+        font-size: 14px;
+        margin: 0px 0px 0px 10px;
+    }
+
+}

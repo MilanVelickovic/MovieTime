@@ -22,6 +22,7 @@ import { MovieComponent } from './components/movies/movie/movie.component';
 import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
 import { AllGenresComponent } from './components/content/all-genres/all-genres.component';
 import { SeparateContentComponent } from './components/content/separate-content/separate-content.component';
+import { StarRateComponent } from './components/UI/star-rate/star-rate.component';
 
 import { AuthGuardService1, AuthGuardService2 } from './services/auth-guard/auth-guard.service';
 
@@ -44,7 +45,8 @@ import { reducers } from './reducers';
     StatisticsPageComponent,
     MovieViewComponent,
     AllGenresComponent,
-    SeparateContentComponent
+    SeparateContentComponent,
+    StarRateComponent
   ],
   imports: [
     BrowserModule,

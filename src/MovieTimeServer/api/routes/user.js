@@ -129,8 +129,8 @@ router.post("/register", (req, res, next) => {
                             sex: req.body.sex,
                             emailNotifications: req.body.emailNotifications
                         })
-                        user
-                            .save()
+                        
+                        user.save()
                             .then(result => {
                                 console.log(result)
                                 res.json({

@@ -11,7 +11,7 @@ import { Movie } from 'src/app/models/movie/movie';
 export class MovieDbService {
 
   private BASE_URL = "https://api.themoviedb.org/3/"
-  private API_KEY = "f9c8d425d5c4de2186f68284a769d770"
+  private API_KEY = "<<API_KEY>>"
 
   constructor(private http: HttpClient) { }
 
