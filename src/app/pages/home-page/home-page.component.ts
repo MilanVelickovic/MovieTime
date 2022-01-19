@@ -24,6 +24,8 @@ export class HomePageComponent implements OnInit {
       ["myList", false],
       ["trending", false]
     ])
+    this.loadMovieList()
+    this.loadTrending()
   }
 
   ngOnInit(): void {
@@ -31,8 +33,10 @@ export class HomePageComponent implements OnInit {
 
   loadMovieList(): void {
     let user = JSON.parse(window.sessionStorage.getItem("user") || '')
-    this.myListResult = user.movieList.map((movie: any) => {
-      return this.movieDB.getMovieById(movie).subscribe(result => result)
+    user.movieList.map((movie: any) => {
+      this.movieDB.getMovieById(movie).subscribe((result: any) => {
+          this.myListResult = [...this.myListResult, result]
+      })
     })  
   }
 
@@ -64,13 +68,11 @@ export class HomePageComponent implements OnInit {
       this.pages.set("trending", false)
 
     } else if (page === "myList") {
-      this.loadMovieList()
       this.pages.set("home", false)
       this.pages.set("myList", true)
       this.pages.set("trending", false)
 
     } else {
-      this.loadTrending()
       this.pages.set("home", false)
       this.pages.set("myList", false)
       this.pages.set("trending", true)

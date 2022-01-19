@@ -13,11 +13,8 @@ export class AppComponent {
   title = 'MovieTime';
 
   constructor(private movieDB: MovieDbService, private store: Store<AppState>) {
-    let genres = this.movieDB.getMovieGenres()
-    this.store.dispatch(new GenreActions.AddGenres(genres))
-    
-    // this.movieDB.getMovieGenres().subscribe(result => {
-    //   this.store.dispatch(new GenreActions.AddGenres(result))
-    // })
+    this.movieDB.getMovieGenres().subscribe((result: any) => {
+      this.store.dispatch(new GenreActions.AddGenres(result))
+    })
   }
 }
