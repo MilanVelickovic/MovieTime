@@ -13,12 +13,10 @@ export class RatingService {
   constructor(private http: HttpClient) { }
 
   rate(rating: any): Observable<any> {
-    const url = this.BASE_URL + "ratemovie"
-    return this.http.post(url, rating).pipe(map((response: any) => response))
+    return this.http.post(this.BASE_URL + "ratemovie", rating).pipe(map((response: any) => response))
   }
 
   isRated(data: any): Observable<any> {
-    const url = this.BASE_URL + "israted"
-    return this.http.post(url, data).pipe(map((response: any) => response))
+    return this.http.post(this.BASE_URL + "israted", data).pipe(map((response: any) => response))
   }
 }

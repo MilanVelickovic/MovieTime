@@ -16,12 +16,19 @@ import { CheckButton } from 'src/app/models/check-button/check-button';
 export class FormCheckComponent implements OnInit {
 
   @Input() check: CheckButton
+  isChecked = false
 
   public parser = new DOMParser()
 
   constructor() {}
 
   ngOnInit(): void {
+    window.sessionStorage.setItem(this.check.getNameValue(), this.isChecked.toString())
+  }
+
+  checked(event: any): void {
+    this.isChecked = event.target.checked
+    window.sessionStorage.setItem(this.check.getNameValue(), this.isChecked.toString())
   }
 
 }

@@ -1,5 +1,5 @@
 <div class="form-check">
-    <input type="{{check.getTypeValue()}}" class="form-check-input" formControlName="{{check.getNameValue()}}" name="{{check.getNameValue()}}">&nbsp;
+    <input type="{{check.getTypeValue()}}" class="form-check-input" formControlName="{{check.getNameValue()}}" name="{{check.getNameValue()}}" [checked]="isChecked" (change)="checked($event)">&nbsp;
     <label class="form-check-label" for="{{check.getNameValue()}}">{{check.getLabelValue()}} <span *ngIf="check.getRequiredValue()" data-bs-toggle="tooltip" data-bs-placement="right" title="This field is required!">*</span></label><br/>
     <small class="form-text text-muted">{{check.getInfoValue()}}</small>
 </div>

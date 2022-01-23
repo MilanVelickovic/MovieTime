@@ -32,12 +32,14 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.getCookie("email"))
+    this.loginForm.get("email")?.setValue(this.getCookie("email"))
+    this.loginForm.get("password")?.setValue(this.getCookie("password"))
   }
 
   loginUser(): void {
     let email = this.loginForm.get("email")?.value
     let password = this.loginForm.get("password")?.value
-    let rememberMe = this.loginForm.get("rememberMe")
 
     if (!this.loginForm.get("email")?.valid) {
       this.inputs[this.getIndexOfInputByName("email")].setInfoValue("Invalid email.")
@@ -64,6 +66,11 @@ export class LoginPageComponent implements OnInit {
       } else if (Object.values(result)[0] == "Password incorrect!") {
         this.inputs[this.getIndexOfInputByName("password")].setInfoValue("Password incorrect!")
       } else {
+        if (window.sessionStorage.getItem(this.check.getNameValue()) == "true") {
+          this.setCookie("email", this.loginForm.get("email")?.value)
+          this.setCookie("password", this.loginForm.get("password")?.value)
+          window.sessionStorage.clear()
+        }
         window.sessionStorage.setItem("user", JSON.stringify(Object.values(result)[1]))
         this.router.navigate(["/home"])
       }
@@ -87,8 +94,24 @@ export class LoginPageComponent implements OnInit {
   setCookie(cname: string, cvalue: string): void {
     const date = new Date();
     date.setTime(date.getTime() + (60 * 60 * 24));
-    let expires = "expires="+ date.toUTCString();
+    let expires = "expires=" + date.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+
+  getCookie(cname: string): string {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
   }
 
 }

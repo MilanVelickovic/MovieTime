@@ -26,14 +26,13 @@ export class RegisterPageComponent implements OnInit {
 
   registerForm: FormGroup
 
-
   constructor(private formBuilder: FormBuilder, private router: Router, private userDB: UserDbService) {
     this.registerForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
       passwordRepeat: new FormControl('', Validators.required),
-      termsConditions: new FormControl('false', Validators.requiredTrue),
-      emailNotifications: new FormControl('false')
+      termsConditions: new FormControl(false, Validators.requiredTrue),
+      emailNotifications: new FormControl(false)
     })
   }
 
@@ -62,6 +61,14 @@ export class RegisterPageComponent implements OnInit {
       this.inputs[this.getIndexOfInputByName("passwordRepeat")].setInfoValue("")
     }
 
+    if (window.sessionStorage.getItem("termsConditions") == "false") {
+      this.checks[this.getIndexOfCheckByName("termsConditions")].setInfoValue("Required!")
+      this.registerForm.get("termsConditions")?.setValue(window.sessionStorage.getItem("termsConditions") == "false")
+    } else {
+      this.checks[this.getIndexOfCheckByName("termsConditions")].setInfoValue("")
+      this.registerForm.get("termsConditions")?.setValue(window.sessionStorage.getItem("termsConditions") == "true")
+    }
+
     if (this.inputs[this.getIndexOfInputByName("email")].getInfoValue() == "" &&
         this.inputs[this.getIndexOfInputByName("password")].getInfoValue() == "" &&
         this.inputs[this.getIndexOfInputByName("passwordRepeat")].getInfoValue() == "" &&
@@ -77,10 +84,13 @@ export class RegisterPageComponent implements OnInit {
             favGenres: [],
             age: 0,
             sex: "",
-            emailNotifications: false
+            emailNotifications: window.sessionStorage.getItem("emailNotifications") == "true"
           }
 
-          this.registerUserDB(user)          
+          if (this.registerForm.valid) {
+            window.sessionStorage.clear()
+            this.registerUserDB(user)  
+          }        
     }
   }
 

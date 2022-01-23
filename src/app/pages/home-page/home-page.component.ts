@@ -31,11 +31,11 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  loadMovieList(): void {
+  loadMovieList(): void { 
     let user = JSON.parse(window.sessionStorage.getItem("user") || '')
     user.movieList.map((movie: any) => {
       this.movieDB.getMovieById(movie).subscribe((result: any) => {
-          this.myListResult = [...this.myListResult, result]
+        this.myListResult = [result]
       })
     })  
   }
