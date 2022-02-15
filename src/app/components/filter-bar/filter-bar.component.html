@@ -9,9 +9,9 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Choose Genre
             </a>
-            <ul id="genreDropdownMenu" class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li *ngFor="let genre of genres">
-                <a class="dropdown-item" href="#{{genre.toLowerCase().replace(' ', '')}}">{{genre}}</a>
+                <a href="#{{genre.toLowerCase().replace(' ', '')}}" class="dropdown-item">{{genre}}</a>
               </li>
               <li><hr class="dropdown-divider"></li>
               <li>
@@ -34,7 +34,7 @@
             <a class="nav-link" (click)="sendPageValue('trending')">Trending 🔥</a>
           </li>
           <li class="nav-item forYou">
-            <a class="nav-link" href="#">For you</a>
+            <a class="nav-link" (click)="sendPageValue('foryou')">For you</a>
           </li>
         </ul>
         <div class="input-group mb-3">
@@ -43,7 +43,7 @@
               <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
             </svg>
           </span>
-          <input type="text" class="form-control" placeholder="Username" aria-label="Username" [(ngModel)]="search" (ngModelChange)="sendSearchValue()">
+          <input type="text" class="form-control" placeholder="Search" [(ngModel)]="search" (ngModelChange)="sendSearchValue()">
         </div>
       </div>
     </div>

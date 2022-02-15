@@ -11,7 +11,8 @@ import { Movie } from 'src/app/models/movie/movie';
 export class MovieDbService {
 
   private BASE_URL = "https://api.themoviedb.org/3/"
-  private API_KEY = "<<API_KEY>>"
+  // private API_KEY = "<<API_KEY>>"
+  private API_KEY = "508a1d40f3911f5d61fa8f25fe4def49"
 
   constructor(private http: HttpClient) { }
 
@@ -43,6 +44,11 @@ export class MovieDbService {
   getTrending(): Observable<Movie[]> {
     // https://api.themoviedb.org/3/trending/all/day?api_key=<<API_KEY>>
     return this.http.get(`${this.BASE_URL}trending/all/day?api_key=${this.API_KEY}`).pipe(map((movies: any) => movies.results.map((movie: any) => this.createMovieObject(movie))))
+  }
+
+  recommend(movieId: number): Observable<Movie[]> {
+    // http://localhost:5000/recommend/300
+    return this.http.get(`http://localhost:5000/recommend/${movieId}`).pipe(map((movies: any) => movies.recommendation.map((movie: any) => this.getMovieById(movie))))
   }
 
   createMovieObject(movie: any): Movie {

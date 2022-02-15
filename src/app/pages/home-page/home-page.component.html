@@ -5,4 +5,5 @@
     <app-separate-content *ngIf="search" [name]="'Search'" [movies]="searchResult"></app-separate-content>
     <app-separate-content *ngIf="pages.get('trending')" [name]="'Trending'" [movies]="trendingResult"></app-separate-content>
     <app-separate-content *ngIf="pages.get('myList')" [name]="'My List'" [movies]="myListResult"></app-separate-content>
+    <app-separate-content *ngIf="pages.get('forYou')" [name]="'For you'" [movies]="forYouResult"></app-separate-content>
 </div>
