@@ -9,6 +9,7 @@ const uri = "mongodb+srv://admin:" + PASS + "@movie-time-rest-api.vxq6i.mongodb.
 mongoose.connect(uri)
 
 const userRoutes = require("./api/routes/user")
+const movieRoutes = require("./api/routes/movie")
 
 app.use(bodyParser.urlencoded({
     extended: false
@@ -27,6 +28,7 @@ app.use((req, res, next) => {
 })
 
 app.use("/user", userRoutes)
+app.use("/rate", movieRoutes)
 
 app.use((req, res, next) => {
     const error = new Error(" Not found!")

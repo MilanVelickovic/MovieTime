@@ -4,6 +4,28 @@ const mongoose = require("mongoose")
 
 const Movie = require("../models/movie")
 
+router.get("/all", (req, res, next) => {
+    if (req.body.securityCode === "w@>*5ZA{Qe/eH`9P") {
+        Movie.find({}, (err, result) => {
+            if (err) {
+                return res.json({
+                    message: "Something went wrong."
+                })
+            } else {
+                if (result) {
+                    return res.json({
+                        ratings: result
+                    })
+                }
+            }
+        })
+    } else {
+        return res.json({
+            message: "You don't have access for this endpoint."
+        })
+    }
+})
+
 router.post("/israted", (req, res, next) => {
     Movie.find({movieId: req.body.movieId})
          .exec()

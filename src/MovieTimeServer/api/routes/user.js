@@ -5,6 +5,28 @@ const bcrypt = require("bcrypt")
 
 const User = require("../models/user")
 
+router.get("/all", (req, res, next) => {
+    if (req.body.securityCode === "7=_%=g@n<^[EBfM^") {
+        User.find({}, (err, result) => {
+            if (err) {
+                return res.json({
+                    message: "Something went wrong."
+                })
+            } else {
+                if (result) {
+                    return res.json({
+                        users: result
+                    })
+                }
+            }
+        })
+    } else {
+        return res.json({
+            message: "You don't have access for this endpoint."
+        })
+    }
+})
+
 router.post("/login", (req, res, next) => {
     User.find({email: req.body.email})
         .exec()
